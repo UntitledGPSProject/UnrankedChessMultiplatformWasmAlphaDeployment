@@ -16,13 +16,24 @@ async function makeXMLHttpRequest(method, url, headersMapJsonString, callID) {
     console.log(url);
     console.log('Headers:');
     console.log(headersMapJsonString);
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-           // Typical action to be performed when the document is ready:
-           //document.getElementById("demo").innerHTML = xhttp.responseText;
-           console.log('Received response:');
-           console.log(xhttp.responseText);
+            // Typical action to be performed when the document is ready:
+            //document.getElementById("demo").innerHTML = xhttp.responseText;
+            console.log('Received response:');
+            console.log(xhttp.responseText);
+            const exports = import("./composeApp.mjs");
+            exports.then((value) => {
+                    const headersString = xhttp.getAllResponseHeaders();
+                    console.log('`headersString`:')
+                    console.log(headersString);
+                    value.xmlHttpRequestDone(200, xhttp.responseText, headersString, true, '', callID)
+                }
+            );
+        } else {
+            console.log('Something went wrong:')
+            console.log(xhttp.responseText)
         }
     };
     headers.forEach( function () {
