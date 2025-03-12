@@ -1,6 +1,6 @@
 //import exports from "./module.mjs"
 
-async function makeXMLHttpRequest(method, url, headersMapJsonString) {
+async function makeXMLHttpRequest(method, url, headersMapJsonString, callID) {
 
     var headers;
     try {
