@@ -1,6 +1,6 @@
 //import exports from "./module.mjs"
 
-async function makeXMLHttpRequest(method, url, headersMapJsonString, callID) {
+async function makeXMLHttpRequest(method, url, headersMapJsonString, callId) {
 
     var headers;
     try {
@@ -8,6 +8,9 @@ async function makeXMLHttpRequest(method, url, headersMapJsonString, callID) {
     } catch (e) {
         headers = new Map()
     }
+
+    console.log('`callId`:')
+    console.log(callId)
 
     console.log('Making an arbitrary XMLHttpRequest...')
     console.log('Method:');
@@ -28,12 +31,11 @@ async function makeXMLHttpRequest(method, url, headersMapJsonString, callID) {
                     const headersString = xhttp.getAllResponseHeaders();
                     console.log('`headersString`:')
                     console.log(headersString);
-                    value.xmlHttpRequestDone(200, xhttp.responseText, headersString, true, '', callID)
+                    console.log('`callId`:')
+                    console.log(callId)
+                    value.xmlHttpRequestDone(200, xhttp.responseText, headersString, true, '', callId)
                 }
             );
-        } else {
-            console.log('Something went wrong:')
-            console.log(xhttp.responseText)
         }
     };
     headers.forEach( function () {
